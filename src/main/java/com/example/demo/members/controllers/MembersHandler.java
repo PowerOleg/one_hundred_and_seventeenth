@@ -11,25 +11,48 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.example.demo.members.models.Member.*;
+
 @Controller
 @RequestMapping("/members")
 public class MembersHandler {
     private static List<Member> memberslist = new ArrayList<>();
 
-
+//Thymeleaf lessons
     @GetMapping //имеется в виду путь который у класса(см выше)
     public String toMembers(Model model) {                                                                                     //через Model данные поподают в другие части приложения(контроллеры, темплейты т.д.)
         model.addAttribute("members", memberslist);             //1 передает memberslist под именем members в html
+        model.addAttribute("Name", "Oleg");
+        model.addAttribute("member", getMember("Kolya", "Petrov"));
+//передаем мапу, List
+        model.addAttribute("memberMap", getMap());
+        model.addAttribute("memberList", getList());
+        model.addAttribute("memberObject", getMember("Pedro", "Muchos"));
+
         return "members/members";
     }
 
-    @GetMapping("/new_member")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//    @GetMapping("/new_member")
     public String toAddMember() {
         return "members/new_member";
     }
 
 
-    @PostMapping("/new_member/create")
+//    @PostMapping("/new_member/create")
     public String createMember(
             @RequestParam String firstName,
             @RequestParam String lastName,

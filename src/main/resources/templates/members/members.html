@@ -3,6 +3,8 @@
 <head>
     <meta cherset="UTF-8">
     <title>Members</title>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" type="text/css">
+    <script th:src="@{/js/app/index.js}"></script>
 </head>
 <body>
 <h1>Hello Members!</h1>
@@ -11,7 +13,6 @@
            value="Add New Members"
            onclick='location.href="/members/new_member"'/>
 </form>
-
 <div>
     <ul th:each="member: ${members}">
        <li>
@@ -19,8 +20,152 @@
            <p>Last Name: <span th:text = "${member.lastName}"/></p>
        </li>
     </ul>
-
-    <p> </p>
 </div>
+
+
+
+<!--input type="text" значит поле для заполнения-->
+<h3>Lesson 1</h3>
+<div class="container">
+    <label for="defaultName">Lesson 1</label>
+    <input id="defaultName" style="..." type="text" name="userName" value="James" th:value="${Name}"/>
+</div>
+<!--th:text ставит текст в тело тега, вместо-->
+<h3>Lesson 2</h3>
+<p th:text="${Name}">This text will be replaced</p>
+
+<!--сплошная линия-->
+<hr>
+<!--перевод каретки и с новой строки-->
+<br>
+<!--передали объект, member[''] вызывает у объекта поле-->
+<h3>Lesson 3</h3>
+<p th:text="${member.firstName}">Nothing</p>
+<p th:text="${member.classMethod()}">Nothing</p>
+<p th:text="${member['firstName']}">Nothing</p>
+
+<!--работа с map-->
+<h3>Lesson 4</h3>
+<p th:text="${memberMap.Bob}">Nothing</p>
+<p th:text="${memberMap['Bob'].lastName}">Nothing</p>
+
+<!--работа с List-->
+<h3>Lesson 5</h3>
+<p th:text="${memberList[0]}">Nothing</p>
+<p th:text="${memberList[2]}">Nothing</p>
+<hr>
+<!--Asterisk syntax   *{} доступ к полю напрямую -->
+<h3>Lesson 6</h3>
+<!--выбираем для контейнера div объект с которым будем работать-->
+<div th:object="${memberObject}">
+    <div class="form-group">
+        <label for="firstName">First name</label>
+<!--        span придает строке CSS свойства т.е. графические - цвет и т.д.-->
+        <span id="firstName" style="color: blue"  th:text="*{firstName}"></span>
+    </div>
+</div>
+<!--link @{}-->
+<h3>Lesson 7</h3>
+<!--абсолютный путь-->
+<a th:href="@{http://ya.ru}">absolute path</a>
+<br>
+<!--относительный путь-->
+<label for="relativeLink">relative path</label>
+<a id="relativeLink" th:href="@{/members/new_member}">relative path</a>
+<!--можно передать параметр при переходе-->
+<br>
+<!--захардкодили передаваемый параметр-->
+<label for="parameterToLink">Send a parameter using @{}</label>
+<a id="parameterToLink" th:href="@{/intro/bar(id=${'1'})}">parameterToLink</a>
+<a id="parameterToLink2" th:href="@{/intro/bar(id=${'1'}, name=${'Oleg'})}">parametersToLink2</a>
+<!--то что в {} это ключ-->
+<a id="parameterToPath" th:href="@{/intro/user/{id}/name/{name}(id=${'1'}, name=${'Ivan'})}">parameterToPath</a>
+
+
+
+<h3>Lesson 8</h3>
+<!--надо разобраться, не работает-->
+<!--используем #{} берем значения из properties -->
+<p th:text="#{home.welcome}">A default message</p>
+
+<label for="unescape">Unescape</label>
+<p id="unescape" th:utext="#{home.welcome.tag}">message</p>
+
+
+<!--операции, тернарный оператор, условия if -->
+<h3>Lesson 9</h3>
+<!--для получения true/false операторы используются внутри ${} т.е. th:text="${3 > 0}"  -->
+<span style="color: green; margin-left: 10em" th:text="${5 * 6}"></span>
+
+<h3>Lesson 10</h3>
+<!--атрибут th:attr, способен изменять значение атрибутов тегов. (почти не используется)  https://habr.com/ru/post/351030/-->
+<!--потому что красивее изменять значения атрибутов непосредственно одноименными атрибутами th:action...th:value...-->
+<!--<input type="submit" value="Subscribe!" th:attr="value=#{subscribe.submit}"/>-->
+<!--аттрибут тега в данный момент это class-->
+<input id="attribute" type="button" value="Do it" class="btn" th:attrappend="class=${' ' + 'btn-success'}"/>
+
+
+<!--forEach-->
+<!--index это параметры об объекте-->
+<!--можно <tr th:each="element : ${memberList}">-->
+<h3>Lesson 11</h3>
+<div class="container">
+    <div class="row">
+        <label style="margin-right: 2em" for="each">"forEach loop" </label>
+        <table style="color: green" id="each">
+            <tr th:each="member, index : ${memberList}">
+                <td th:text="${member}"></td>
+                <td th:text="${' ' + member}"></td>
+                <td th:text="${index}"></td>
+            </tr>
+        </table>
+    </div>
+</div>
+<!--тег <tr> (table row) используется для определения строк в таблице.
+ <th> (создает ячейки с заголовками) или <td> (создает ячейки с данными таблицы).-->
+
+<!--if-->
+<!--насколько помню  th:text="${5 > 6} тоже работает как Boolean причем с особенностями html типо реагирует на 0 ,undefine, null-->
+<h3>Lesson 12</h3>
+<div class="container">
+    <div class="row" th:if="${memberList.size() > 1}">
+    <p th:text="${'Print if'}"></p>
+    </div>
+
+
+    <div class="row" th:unless="${memberList.size() < 1}">
+    <p th:text="${'Print unless'}"></p>
+    </div>
+</div>
+
+
+<!--switch-->
+<h3>Lesson 13</h3>
+<div class="container">
+    <div class="row">
+        <div th:switch="${memberList[0]}">
+            <p th:case="'One'">1</p>
+            <p th:case="'Two'">2</p>
+        </div>
+    </div>
+</div>
+
+
+
+<!--onclick-->
+<h3>Lesson 14</h3>
+<div class="row">
+    <label style="margin-right: 1.5em" for="thonclick">th:onclick </label>
+    <button class="btn btn-info" id="thonclick"
+            th:onclick="'javascript:substituteOnClick(${'ONCLICK EXAMPLE'});'">Click me</button>
+</div>
+
+
+
+
+
+
+<script th:src="@{/js/app/index.js}"></script>
+
 </body>
 </html>
