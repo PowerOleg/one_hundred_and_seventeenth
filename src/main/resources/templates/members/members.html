@@ -3,7 +3,7 @@
 <head>
     <meta cherset="UTF-8">
     <title>Members</title>
-    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" type="text/css">
+<!--    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" type="text/css">-->
     <script th:src="@{/js/app/index.js}"></script>
 </head>
 <body>
@@ -152,20 +152,57 @@
 
 
 
-<!--onclick-->
+<!--JavaScript onclick-->
 <h3>Lesson 14</h3>
 <div class="row">
-    <label style="margin-right: 1.5em" for="thonclick">th:onclick </label>
+    <label style="margin-right: 1.5em" for="thonclick">JavaScript1</label>
     <button class="btn btn-info" id="thonclick"
-            th:onclick="'javascript:substituteOnClick(${'ONCLICK EXAMPLE'});'">Click me</button>
+            th:onclick="'javascript:return MyFunction();'">Click me</button>
 </div>
 
 
 
+<div class="row">
+    <label style="color: green" for="thonclick">JavaScript2</label>
+    <button class="btn btn-info" id="2"
+            th:onclick="'javascript:return ChangeColor(this);'">Change color</button>
+</div>
 
 
 
-<script th:src="@{/js/app/index.js}"></script>
+<div class="row">
+    <label style="margin-right: 1.5em" for="onclick">JavaScript3</label>
+    <button class="btn btn-info" id="onclick"
+            th:onclick="'javascript:return Substitute();'">Push the button</button>
+</div>
+
+<!--передача аргумента использует не '
+а \' это ковычка с экранированием-->
+<div class="row">
+    <label style="margin-right: 1.5em" for="4">JavaScript4</label>
+    <button class="btn btn-info" id="4"
+            th:onclick="'javascript:replaceWithText(\'Petya\');'">SubstitutionButton
+    </button>
+</div>
+
+
+<br>
+a: <input type="number" name="a" id="a">
+<br>
+b: <input type="number" name="b" id="b">
+<br>
+<button onclick="add(document.getElementById('a').value,document.getElementById('b').value)">Add</button>
+
+
+
+
+
+<h3>Lesson 15</h3>
+
+
+
+
+
 
 </body>
 </html>
