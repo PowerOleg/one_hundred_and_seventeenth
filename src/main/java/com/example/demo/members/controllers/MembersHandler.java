@@ -28,6 +28,7 @@ public class MembersHandler {
         model.addAttribute("memberMap", getMap());
         model.addAttribute("memberList", getList());
         model.addAttribute("memberObject", getMember("Pedro", "Muchos"));
+        model.addAttribute("appleJuice", "Apple Juice");
 
         return "members/members";
     }

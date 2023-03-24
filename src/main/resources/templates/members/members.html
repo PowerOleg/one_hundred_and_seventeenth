@@ -4,7 +4,8 @@
     <meta cherset="UTF-8">
     <title>Members</title>
 <!--    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" type="text/css">-->
-    <script th:src="@{/js/app/index.js}"></script>
+<!--    <script th:src="@{/js/app/index.js}"></script>-->
+    <script th:src="@{/js/app/libs/jquery.min.js}"></script>
 </head>
 <body>
 <h1>Hello Members!</h1>
@@ -176,12 +177,30 @@
             th:onclick="'javascript:return Substitute();'">Push the button</button>
 </div>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <!--передача аргумента использует не '
 а \' это ковычка с экранированием-->
 <div class="row">
     <label style="margin-right: 1.5em" for="4">JavaScript4</label>
     <button class="btn btn-info" id="4"
-            th:onclick="'javascript:replaceWithText(\'Petya\');'">SubstitutionButton
+            th:onclick="'javascript:replaceWithText(\'${member.firstName}\');'">SubstitutionButton
     </button>
 </div>
 
@@ -196,12 +215,48 @@ b: <input type="number" name="b" id="b">
 
 
 
-
+<!--th:block виден только в этом html, в браузере эти строчки невидны, но исполняются-->
 <h3>Lesson 15</h3>
+<th:block th:if="${memberList[0] == 'One'}">
+    <div class="container">
+        <label style="margin-right: 2em" for="block">th:block</label>
+        <th:block th:each="element : ${memberList}">
+            <span id="block" style="color: gray; margin-right: 2em" th:text="${element}"></span>
+        </th:block>
+    </div>
+</th:block>
 
 
+<h3>Lesson 16</h3>
+<!--пример когда параметр передается в функцию javascript-->
 
 
+<h3>Lesson 17</h3>
+<div class="container">
+    <div class="row">
+        <span style="margin-right: 2em">Hello, [[${memberList[0]}]]</span>
+        <span style="margin-right: 2em" th:text="'instead of'"></span>
+        <span style="margin-right: 2em">Hello, <span th:text="${memberList[0]}"></span>!</span>
+    </div>
+
+<!--to disable inlining. ЧТобы отключить инлайнинг    -->
+<!--    <p th:inline="none"></p>-->
+</div>
+
+<!--работает!!!-->
+<!--заинлайнили скрипт javascript, для этого использовали jQuery, который подключен в начале этого html-->
+<h3>Lesson 18</h3>
+<div class="container">
+    <span id="thinJavascript">Should be replaced</span>
+</div>
+
+<script th:inline="javascript">
+$(document).ready(function () {
+    var username = [[${appleJuice}]];
+    // var username = [(${appleJuice})];
+    $('#thinJavascript').replaceWith('<span id="thinJavascript" style="color: #1c7430">' + username + '</span>')
+})
+</script>
 
 
 </body>
