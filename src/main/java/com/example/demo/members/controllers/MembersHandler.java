@@ -29,7 +29,7 @@ public class MembersHandler {
         model.addAttribute("memberList", getList());
         model.addAttribute("memberObject", getMember("Pedro", "Muchos"));
         model.addAttribute("appleJuice", "Apple Juice");
-
+        model.addAttribute("align", "center");
         return "members/members";
     }
 

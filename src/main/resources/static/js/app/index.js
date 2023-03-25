@@ -10,9 +10,6 @@ if (Element.style.color == 'green') Element.style.color = 'red';
 
 
 function Substitute() {
-//var name = document.getElementById("onclick").value;          !!!
-
-
     // create the new element (input)
     var textBox = document.createElement("input");
     textBox.type = "text";
@@ -21,7 +18,7 @@ function Substitute() {
     // replace it
     button.replaceWith(textBox);
 }
-
+//если делать с большой буквы - почемуто не работает
 function replaceWithText(text) {
     // get the button
     var button = document.getElementById("4");
@@ -33,3 +30,8 @@ function add(a, b) {
       var sum = parseInt(a, 10) + parseInt(b, 10);
       alert(sum);
 }
+
+//function apple() {
+//    var username = [[${memberList[0]}]];
+//    $('#JavaScript').replaceWith('<span id="JavaScript" style="color: #1c7430">' + username + '</span>')
+//})

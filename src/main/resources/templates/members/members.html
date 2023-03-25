@@ -4,8 +4,14 @@
     <meta cherset="UTF-8">
     <title>Members</title>
 <!--    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" type="text/css">-->
-<!--    <script th:src="@{/js/app/index.js}"></script>-->
+<!--    если index.js не подключить, то не будут работать функции javaScript -->
+    <script th:src="@{/js/app/index.js}"></script>
     <script th:src="@{/js/app/libs/jquery.min.js}"></script>
+    <style th:inline = "css">
+        .[[${classname}]] {
+        text-align: [[${align}]];
+        }
+    </style>
 </head>
 <body>
 <h1>Hello Members!</h1>
@@ -179,22 +185,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <!--передача аргумента использует не '
 а \' это ковычка с экранированием-->
 <div class="row">
@@ -227,8 +217,10 @@ b: <input type="number" name="b" id="b">
 </th:block>
 
 
+
+
 <h3>Lesson 16</h3>
-<!--пример когда параметр передается в функцию javascript-->
+<!--пример когда параметр передается в функцию javascript пока не даётся(-->
 
 
 <h3>Lesson 17</h3>
